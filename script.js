@@ -63,7 +63,7 @@ const typeWriter = () => {
   setTimeout(typeWriter, 75); // Adjust the timeout value for typing speed
 };
 
-const observer = new IntersectionObserver((entries, observer) => {
+const terminalObserver = new IntersectionObserver((entries, observer) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
       typeWriter();
@@ -73,5 +73,59 @@ const observer = new IntersectionObserver((entries, observer) => {
   });
 });
 
-observer.observe(terminal);
+terminalObserver.observe(terminal);
+
+
+// Hide the message container initially
+const messageContainer = document.getElementById('messageContainer');
+messageContainer.classList.add('hidden');
+
+const messageSections = document.querySelectorAll('.message');
+let messageIndex = 0;
+
+// Function to trigger animation for the next message section
+function animateNextMessage() {
+  if (messageIndex < messageSections.length) {
+    const currentMessage = messageSections[messageIndex];
+    currentMessage.classList.add('animate-slide-left');
+    messageIndex++;
+  }
+}
+
+// Intersection Observer to trigger animation for each message section
+const messageObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateNextMessage();
+      observer.unobserve(entry.target);
+    }
+  });
+});
+
+// Observe each message section
+messageSections.forEach(section => {
+  messageObserver.observe(section);
+});
+
+window.addEventListener("scroll", function () {
+  var nav = document.querySelector("nav");
+  var logoText = document.querySelector(".logo-text");
+  var scrollToTopBtn = document.getElementById("scrollToTop");
+  if (window.scrollY > 0) {
+    nav.classList.add("shrink");
+    logoText.classList.add("hidden");
+    scrollToTopBtn.classList.add("visible");
+  } else {
+    nav.classList.remove("shrink");
+    logoText.classList.remove("hidden");
+    scrollToTopBtn.classList.remove("visible");
+  }
+  
+  // If scroll position is greater than zero and message container is hidden, show it
+  if (window.scrollY > 0 && messageContainer.classList.contains('hidden')) {
+    messageContainer.classList.remove('hidden');
+    // Disable scrolling on body
+    document.body.classList.remove('no-scroll');
+  }
+});
 

@@ -16,6 +16,7 @@ nav {
   z-index: 1000;
   transition: all 1s ease-in-out;
 }
+
 /* Shrink navbar on scroll */
 .shrink {
   height: 60px;
@@ -61,12 +62,14 @@ nav {
 #scrollToTop.hidden {
   display: none;
 }
+
 /* Define slide-in animation */
 @keyframes slide-in-left {
   from {
     transform: translateX(-100%);
     opacity: 0;
   }
+
   to {
     transform: translateX(0);
     opacity: 1;
@@ -78,26 +81,16 @@ nav {
     transform: translateX(100%);
     opacity: 0;
   }
+
   to {
     transform: translateX(0);
     opacity: 1;
   }
 }
 
-/* Apply animation to each message section */
-.animate-slide-left {
-  animation: slide-in-left 0.5s ease forwards;
-  opacity: 0;
-}
-
-.animate-slide-right {
-  animation: slide-in-right 0.5s ease forwards;
-  opacity: 0;
-}
-
-
 /* Typewriter effect 1 */
 @keyframes typing {
+
   0.0000%,
   27.3488% {
     content: "a";
@@ -250,6 +243,7 @@ nav {
 }
 
 @keyframes blink {
+
   0%,
   100% {
     opacity: 1;
@@ -285,6 +279,7 @@ nav {
   }
 
   @keyframes sequencePopup {
+
     0%,
     100% {
       content: "Designer";
@@ -307,4 +302,26 @@ nav {
     content: "developer";
     animation: sequencePopup 12s linear infinite;
   }
+}
+
+/* Hide the message container initially */
+.hidden {
+  display: none;
+}
+
+/* Disable scrolling when the message container is visible */
+.no-scroll {
+  overflow: hidden;
+
+}
+
+/* Apply animation to each message section */
+.animate-slide-left {
+  animation: slide-in-left 0.5s ease forwards;
+  opacity: 0;
+}
+
+.animate-slide-right {
+  animation: slide-in-right 0.5s ease forwards;
+  opacity: 0;
 }
